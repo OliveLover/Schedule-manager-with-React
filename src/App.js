@@ -1,9 +1,10 @@
 import "./App.css";
+import Header from "./component/Header";
 
 function App() {
   return (
     <div className="App">
-      <div>Header</div>
+      <Header />
       <div>Todo Editor</div>
       <div>Todo List</div>
     </div>
