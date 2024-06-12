@@ -12,3 +12,9 @@
   outline: none;
   border-bottom: 1px solid #1f93ff;
 }
+
+.TodoList .list_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
