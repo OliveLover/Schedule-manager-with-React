@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+<h1>[할 일 관리] 앱 만들기</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h3>Learning Point</h3>
+<ul>
+  <li>UI 개발</li>
+  <li>컴포넌트 나누기</li>
+  <li>CRUD</li>
+  <li>데이터 모델링</li>
+  <li>목 데이터</li>
+  <li>기능의 흐름</li>
+  <li>기능의 완성도</li>
+  <li>key, map, filter</li>
+</ul>
 
-## Available Scripts
 
-In the project directory, you can run:
+<h2>1. Mac 환경에서 사전 준비</h2>
 
-### `npm start`
+Mac에서 React 프로젝트를 생성합니다. node.js가 설치된 상태에서 아래의 코드를 터미널 창에 입력합니다.
+```
+$ sudo npx create-react-app .
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+코드 뒤에 <code> .</code> 은 현재의 디렉토리를 의미합니다.
+Mac은 보안이 강하여 sudo를 붙여 관리자의 권한으로 실행 해주어야 합니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<code>git init</code> 이 안될 경우 아래의 순서대로 입력합니다.
+```
+$ whoamI
+```
 
-### `npm test`
+위의 코드를 입력하면 현재 PC의 사용자명 <code>($USER)</code>을 알 수 있습니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+$ sudo chown -R { 사용자명 }:{ 그룹 } { 현재 디렉토리 절대 경로 }
+```
 
-### `npm run build`
+그룹은 대표적으로 3가지가 있으며 이외에도 더 많은 그룹이 있습니다.
+<ul>
+  <li>staff</li>
+  <li>admin</li>
+  <li>root</li>
+</ul>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+이후 <code>git init</code>을 통해 git에 커밋할 수 있는 상태가 됩니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<h2>2. 요구사항 분석하기</h2>
+<ul>
+  <li>오늘의 날짜를 요일, 월, 일, 연도순으로 표시합니다.</li>
+  <li>할 일(Todo)을 작성하는 입력 폼이 있고, <추가>버튼을 클릭하면 할 일 아이템을 생성합니다.</li>
+  <li>[할 일 관리]앱은 생성한 아이템을 페이지 하단에 리스트로 표시하는데, 키워드 검색으로 원하는 일만 추출할 수 있습니다.</li>
+  <li>리스트로 표시하는 낱낱의 할 일 아이템은 일을 마쳤는지 여부를 표시하는 체크박스, 아이템 이름, 등록 날짜, 그리고 <삭제> 버튼으로 이루어져 있습니다.</li>
+</ul>
