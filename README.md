@@ -50,3 +50,49 @@ $ sudo chown -R { 사용자명 }:{ 그룹 } { 현재 디렉토리 절대 경로 
   <li>[할 일 관리]앱은 생성한 아이템을 페이지 하단에 리스트로 표시하는데, 키워드 검색으로 원하는 일만 추출할 수 있습니다.</li>
   <li>리스트로 표시하는 낱낱의 할 일 아이템은 일을 마쳤는지 여부를 표시하는 체크박스, 아이템 이름, 등록 날짜, 그리고 <삭제> 버튼으로 이루어져 있습니다.</li>
 </ul>
+
+<h2>3. 리액트 훅</h2>
+<p>리액트 훅(React Hook)이란 함수로 만든 리액트 컴포넌트에서 클랫로 만든 리액트 컴포넌트의 기능을 이용하도록 도와주는 함수들입니다.</p>
+<p>리액트 훅은 <cod>useState</cod>, <code>useRef</code> 와 같이 함수의 모든 이름이 "use"로 시작합니다.</p>
+<p>State 와 Ref 모두 원래는 함수로 만든 컴포넌트에서는 사용할 수 없는 기능이지만 이 훅 기능 덕분에 사용할 수 있습니다.</p>
+<p>리액트 훅이라는 명칭은 마치 낚아채듯(Hook) 클래스로 만든 기능을 가져와 사용한다고 하여 붙여진 이름입니다.</p>
+
+<h2>4. useState</h2>
+
+```
+[useState의 용법]
+const [light, setLight] = useState('off');
+```
+
+<ul>
+  <li><code>light</code> : State 변수</li>
+  <li><code>setLight</code> : set 함수</li>
+  <li><code>useState('off')</code> : 생성자(초깃값)</li>
+</ul>
+
+<p>useState를 호추하면 2개의 요소가 담긴 배열을 반환합니다. 이때 첫 번째 요소 light는 현재 상태의 값을 저장하고 있는 변수입니다.</p>
+<p>이 변수를 "State 변수" 라고 부릅니다. 다음으로 두 번째 요소인 setLight는 State 변수의 값을 변경하는, 즉 상태를 업데이트하는 함수 입니다.</p>
+<p>이 함수를 "set 함수"라고 부릅니다.</p>
+<p>useState를 호출할 때 인수로 값을 전달하면 이 값이 State의 초깃값이 됩니다. 위 코드에서의 초깃값은 "off"가 됩니다.</p>
+
+<h2>6. useEffect</h2>
+
+```
+[useEffect의 용법]
+useEffect(callback, [deps])
+```
+
+<ul>
+  <li><code>callback</code> : 콜백 함수</li>
+  <li><code>[deps]</code> : 의존성 배열</li>
+</ul>
+
+<p><code>useEffect는 이 배열 요소의 값이 변경되면 첫 번째 인수로 전달한 콜백 함수를 실행합니다.</code></p>
+
+<h3>컴포넌트의 마운트 시점에만 콜백함수 실행</h3>
+
+```
+useEffect(callback, [])
+```
+
+<p> 의존성 배열에 빈 배열을 전달하면 "마운트 시점"에만 콜백 함수를 실행합니다.</p>
