@@ -30,6 +30,11 @@ function reducer(state, action) {
     case "CREATE": {
       return [action.newItem, ...state];
     }
+    case "UPDATE": {
+      return state.map((it) =>
+        it.id === action.targetId ? { ...it, isDone: !it.isDone } : it
+      );
+    }
     default:
       return state;
   }
@@ -52,7 +57,12 @@ function App() {
     idRef.current += 1;
   };
 
-  const onUpdate = (targetId) => {};
+  const onUpdate = (targetId) => {
+    disPatch({
+      type: "UPDATE",
+      targetId,
+    });
+  };
 
   const onDelete = (targetId) => {};
 
