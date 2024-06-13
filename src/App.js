@@ -35,6 +35,9 @@ function reducer(state, action) {
         it.id === action.targetId ? { ...it, isDone: !it.isDone } : it
       );
     }
+    case "DELETE": {
+      return state.filter((it) => it.id !== action.targetId);
+    }
     default:
       return state;
   }
@@ -64,7 +67,12 @@ function App() {
     });
   };
 
-  const onDelete = (targetId) => {};
+  const onDelete = (targetId) => {
+    disPatch({
+      type: "DELETE",
+      targetId,
+    });
+  };
 
   return (
     <div className="App">
