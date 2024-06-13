@@ -26,7 +26,13 @@ const mockTodo = [
 ];
 
 function reducer(state, action) {
-  return state;
+  switch (action.type) {
+    case "CREATE": {
+      return [action.newItem, ...state];
+    }
+    default:
+      return state;
+  }
 }
 
 function App() {
@@ -34,6 +40,15 @@ function App() {
   const [todo, disPatch] = useReducer(reducer, mockTodo);
 
   const onCreate = (content) => {
+    disPatch({
+      type: "CREATE",
+      newItem: {
+        id: idRef.current,
+        content,
+        isDone: false,
+        createDate: new Date().getTime(),
+      },
+    });
     idRef.current += 1;
   };
 
