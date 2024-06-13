@@ -75,6 +75,19 @@ const [light, setLight] = useState('off');
 <p>이 함수를 "set 함수"라고 부릅니다.</p>
 <p>useState를 호출할 때 인수로 값을 전달하면 이 값이 State의 초깃값이 됩니다. 위 코드에서의 초깃값은 "off"가 됩니다.</p>
 
+<h2>5. useRef</h2>
+
+```
+const ref = useRef(initialValue)
+```
+
+<ul>
+  <li><code>initalValue</code> : ref객체의 현재 프로퍼티의 초기 설정값입니다. 이 값은 초기 렌더링 이후 무시됩니다.</li>
+</ul>
+
+<p><code>ref.current</code>는 프로퍼티를 변경해도 React는 컴포넌트를 다시 렌더링 하지 않습니다. <code>ref</code>는 일반 자바스크립트 객체이기 때문에 React는 사용자가 언제 변경했는지 알지 못합니다.</p>
+<p><code>useRef()</code>는 <code>ref</code>로 값을 참조하거나 DOM을 직접 조작할 수 있으며, 콘텐츠 재생성을 피할때 사용할 수 있습니다.</p>
+
 <h2>6. useEffect</h2>
 
 ```
@@ -96,3 +109,31 @@ useEffect(callback, [])
 ```
 
 <p> 의존성 배열에 빈 배열을 전달하면 "마운트 시점"에만 콜백 함수를 실행합니다.</p>
+
+<h2>7. useReducer</h2>
+
+```
+const [state, dispatch] = useReducer(reducer, initialArg, init?)
+```
+
+<p><code>useReducer</code>컴포넌트를 최상위에 호출하고, <code>reducer</code>를 이용해 <code>state</code> 관리합니다.</p>
+
+```
+import { useReducer } from 'react';
+
+function reducer(state, action) {
+  // ...
+}
+
+function MyComponent() {
+  const [state, dispatch] = useReducer(reducer, { age: 42 });
+  // ...
+```
+
+<ul>
+  <li><code>reducer</code> : <code>state</code>가 어떻게 업데이트 되는지 지정하는 리듀서 함수 입니다. 리듀서 함수는 반드시 "순수 함수"여야 하며, <code>state</code>와 <code>action</code>을 인수로 받아야하고 하고, 다음 state를 반환해야합니다. </li>
+  <li><code>initialArg</code> : 초기 <code>state</code>가 계산되는 값입니다.</li>
+  <li>선택사항 <code>init</code> : 초기 <code>state</code>를 반환하는 초기화 함수입니다. 이 함수가 인수에 할당 되지 않으면, 초기 <code>state</code>는 <code>initialArg</code>로 설정됩니다. 할당되었다면 초기 <code>state</code> init(initialArg)를 호출한 결과가 할당됩니다.</li>
+  <li><code>dispatch 함수</code> : <code>userReducer</code>에 의해 반환되는 <code>dispatch</code>함수는 <code>state</code>를 새로운 값으로 업데이트하고 리렌더링을 일으킵니다. <code>dispatch</code>의 유일한 인수는 <code>action</code> 입니다.</li>
+  <li><code>action</code> : 사용자에 의해 수행됩니다. <code>action</code>은 일반적으로 <code>type</code>프로퍼티와 추가적인 정보를 표현하는 기타 프로퍼티로 포함한 객체로 구성됩니다.</li>
+</ul>
