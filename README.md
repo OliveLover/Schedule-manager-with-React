@@ -10,6 +10,14 @@
   <li>기능의 흐름</li>
   <li>기능의 완성도</li>
   <li>key, map, filter</li>
+  <li>최적화</li>
+  <li>메모이제이션</li>
+  <li>useMemo</li>
+  <li>횡단 관심사와 비즈니스 로직</li>
+  <li>React.memo</li>
+  <li>리렌더링 방지</li>
+  <li>useCallback</li>
+  <li>함수형 업데이트</li>
 </ul>
 
 
@@ -137,3 +145,51 @@ function MyComponent() {
   <li><code>dispatch 함수</code> : <code>userReducer</code>에 의해 반환되는 <code>dispatch</code>함수는 <code>state</code>를 새로운 값으로 업데이트하고 리렌더링을 일으킵니다. <code>dispatch</code>의 유일한 인수는 <code>action</code> 입니다.</li>
   <li><code>action</code> : 사용자에 의해 수행됩니다. <code>action</code>은 일반적으로 <code>type</code>프로퍼티와 추가적인 정보를 표현하는 기타 프로퍼티로 포함한 객체로 구성됩니다.</li>
 </ul>
+
+<h2>8. 최적화와 메모이제이션</h2>
+<p>리액트 앱에서 연산 최적화는 대부분 '메모이제이션(Memoization)' 기법을 이용합니다. '메모이제이션'의 의미는 '메모하는 방법'입니다. 메모이제이션은 특정 입력에 대한 결괏값을 제공해 빠르게 응답하는 기술입니다. 결과적으로 이 기법을 이용하면 불필요한 연산을 줄여 주어 프로그램의 실행 속도를 빠르게 만듭니다. 알고리즘을 공부하는 사람들은 이 기능을 동적 계획법(Dynamic Programming, DP)이라고 합니다.</p>
+<p>리액트의 최적화 관련 기능으로는 <code>useMemo</code>가 있습니다. <code>useMemo</code>느 메모이제이션 기법을 이용해서 연산의 결괏값을 기억했다가 필요할 때 사용함으로써 불필요한 함수 호출을 막아주는 리액트 훅입니다.</p>
+
+<h2>9. useMemo</h2>
+
+```
+[useMemo의 용법]
+const value = useMemo(callback, deps);
+```
+
+<p><code>useMemo</code>를 호출하고 2개의 인수로 콜백 함수와 의존성 배열(deps)을 전달합니다. 호출된 <code>useMemo</code>는 의존성 배열에 담긴 값이 바뀌면 콜백 함수를 다시 실행하고 결괏값을 반화합니다. 예를 들어 다음과 같이 <code>useMemo</code>를 사용하면 의존성 배열 <code>count</code>의 값이 변할 때만 <code>count * count</code>를 계사해 <code>value</code>에 저장합니다.</p>
+
+```
+const value = useMemo(() => {
+return count * count;
+}, [count]);
+```
+
+<h2>10. React.memo</h2>
+
+```
+[React.memo의 용법]
+const memoizedComp = React.memo(Comp);
+```
+<ul>
+  <li><code>Comp</code> : 메모이제이션하려는 컴포넌트</li>
+</ul>
+
+<p><code>React.memo</code>는 인수로 전달한 컴포넌트를 메모이제이션된 컴포넌트로 만들어 반환합니다. 이때 <code>Props</code>가 메모이제이션의 기준이 됩니다. 즉, <code>React.memo</code>가 반환하는 컴포넌트는 부모 컴포넌트에서 전달된 <code>Props</code>가 변경되지 않는 한 리렌더 되지 않습니다. 컴포넌트가 크가 복잡할수록 불필요한 렌더링을 방지하면, 브라우저의 연산량을 줄여주어 성능 최적화에 도움이 됩니다.<code>React.memo</code>를 사용하는 방법은 단지 강화하고 싶은, 즉 메모이제이션을 적용하고 싶은 컴포넌트를 <code>React.memo</code>로 감싸면 됩니다.</p>
+
+<h2>11. useCallback</h2>
+
+```
+[useCallback의 용법]
+const memoizedFunc = useCallback(func, deps)
+```
+
+<ul>
+  <li><code>func</code> : 콜백 함수</li>
+  <li><code>deps</code> : 의존성 배열</li>
+</ul>
+
+<p><code>useCallback</code>은 컴포넌ㅌ가 리렌더될 때 내부에 내부에 작성된 함수를 다시 생성하지 않도록 메모이제이션하는 리액트 훅입니다.</p>
+<p><cdoe>useCallback</cdoe>은 <code>useMemo</code>처럼 2개의 인수를 제공합니다. 첫 번째 인수로는 메모이제이션하려는 콜백 함수를 전달하고, 두 번째 인수로는 의존성 배열을 전달합니다.</p>
+<p>결과로 <code>useCallback</code>은 메모이제이션된 함수를 반환합니다.</p>
+<p><code>useCallback</code>은 의존성 배열에 담긴 값이 바뀌면 첫 번째 인수로 전달한 콜백 함수를 다시 만들어 반환합니다. 만약 첫 번째 인수로 전달한 콜백 함수를 어떤 경우에도 다시 생성하지 않게 하려면 의존성 배열을 빈 배열로 전달하면 됩니다.</p>
