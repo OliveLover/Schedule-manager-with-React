@@ -4,7 +4,7 @@ import TodoItem from "./TodoItem";
 import "./TodoList.css";
 
 const TodoList = () => {
-  const { todo, onUpdate, onDelete } = useContext(TodoContext);
+  const { todo } = useContext(TodoContext);
   const [search, setSearch] = useState("");
 
   const onChangeSearch = (e) => {
@@ -49,12 +49,7 @@ const TodoList = () => {
       />
       <div className="list_wrapper">
         {getSearchResult().map((it) => (
-          <TodoItem
-            key={it.id}
-            {...it}
-            onUpdate={onUpdate}
-            onDelete={onDelete}
-          />
+          <TodoItem key={it.id} {...it} />
         ))}
       </div>
     </div>
