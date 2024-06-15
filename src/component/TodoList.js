@@ -3,9 +3,8 @@ import { TodoContext } from "../App";
 import TodoItem from "./TodoItem";
 import "./TodoList.css";
 
-const TodoList = ({ todo, onUpdate, onDelete }) => {
-  const storeData = useContext(TodoContext);
-  console.log(storeData);
+const TodoList = () => {
+  const { todo, onUpdate, onDelete } = useContext(TodoContext);
   const [search, setSearch] = useState("");
 
   const onChangeSearch = (e) => {
