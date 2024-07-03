@@ -26,6 +26,16 @@
 Mac에서 React 프로젝트를 생성합니다. node.js가 설치된 상태에서 아래의 코드를 터미널 창에 입력합니다.
 ```
 $ sudo npx create-react-app .
+
+
+// vite(비트)로 설치
+$ npm create vite@latest
+
+// node 라이브러리 일괄설치
+$ npm install
+
+// vite로 실행
+$ npm run dev
 ```
 
 코드 뒤에 <code> .</code> 은 현재의 디렉토리를 의미합니다.
